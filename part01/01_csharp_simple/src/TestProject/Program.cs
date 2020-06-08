@@ -11,7 +11,10 @@ namespace TestProject
 
         public static void Main(string[] args)
         {
+			//BEGIN SOLUTION
             Console.WriteLine("Hello Home");
+			//END SOLUTION
+			//STUB: Consol.WriteLine("Stub");
         }
     }
 }
