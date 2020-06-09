@@ -29,8 +29,8 @@ namespace Exercise
                 Console.WriteLine(entry.Key);
             }
             //END SOLUTION
-            //STUB: Console.WriteLine("Hello World twice");
-            //STUB: Console.WriteLine("Hello World twice");
+            /* STUB: Console.WriteLine("Hello World twice");
+            Console.WriteLine("Hello World twice"); */
         }
 
         //BEGIN SOLUTION
