@@ -3,31 +3,35 @@ using System.IO;
 using Xunit;
 using Exercise;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Linq;
+using TestMyCode.CSharp.API.Attributes;
 
 namespace ExerciseTest
 {
     public class Tests
     {
-        private Type ProgramType = typeof(Program);
+        private string @namespace = "Exercise";
+        private string mainClass = "Program";
+        private Type MainClassType;
         private MethodInfo MainMethod;
         private MethodBody MainMethodBody;
 
         public Tests()
         {
-            this.MainMethod = this.ProgramType.GetMethod("Main", new[] { typeof(string[]) });
+            this.MainClassType = Type.GetType($"{@namespace}.{mainClass},{@namespace}");
+            this.MainMethod = this.MainClassType.GetMethod("Main", new[] { typeof(string[]) });
             this.MainMethodBody = this.MainMethod.GetMethodBody();
         }
 
         [Fact]
         public void TestMainExists()
         {
-            Assert.NotNull(this.MainMethodBody/*, "Do not destroy the Main class from Program.cs!"*/);
+            Assert.NotNull(this.MainMethodBody);
         }
 
         [Fact]
+        [Points("1")]
         public void TestDictionaryIsUsed()
         {
             IList<LocalVariableInfo> locals = this.MainMethodBody.LocalVariables;
@@ -35,10 +39,11 @@ namespace ExerciseTest
             //This could be made more strict by requiring specific key and value types
             Assert.True(locals.Any(local =>
                 local.LocalType.IsGenericType &&
-                local.LocalType.GetGenericTypeDefinition() == typeof(Dictionary<,>)), "Use a Dictionary in your code!");
+                local.LocalType.GetGenericTypeDefinition() == typeof(Dictionary<,>)));
         }
 
         [Fact]
+        [Points("1")]
         public void TestPrintKeys()
         {
             using (StringWriter sw = new StringWriter())
@@ -54,15 +59,15 @@ namespace ExerciseTest
                 Program.PrintKeys(dict);
                 Console.SetOut(stdout);
 
-                // Assert
-                Assert.Contains("f.e", sw.ToString().Replace("\r\n", "\n")/*, "You should print the keys with PrintKeys!"*/);
-                Assert.Contains("etc", sw.ToString().Replace("\r\n", "\n")/*, "You should print the keys with PrintKeys!"*/);
-                Assert.Contains("i.e", sw.ToString().Replace("\r\n", "\n")/*, "You should print the keys with PrintKeys!"*/);
-                Assert.Contains("jne", sw.ToString().Replace("\r\n", "\n")/*, "You should print the keys with PrintKeys!"*/);
+                Assert.Contains("f.e", sw.ToString().Replace("\r\n", "\n"));
+                Assert.Contains("etc", sw.ToString().Replace("\r\n", "\n"));
+                Assert.Contains("i.e", sw.ToString().Replace("\r\n", "\n"));
+                Assert.Contains("jne", sw.ToString().Replace("\r\n", "\n"));
             }
         }
 
         [Fact]
+        [Points("1")]
         public void TestPrintKeysWhereI()
         {
             using (StringWriter sw = new StringWriter())
@@ -78,13 +83,12 @@ namespace ExerciseTest
                 Program.PrintKeysWhere(dict, "i");
                 Console.SetOut(stdout);
 
-                // Assert
-                Assert.Equal("i.e\n", sw.ToString().Replace("\r\n", "\n")/*, "You should only print the keys with given letter\nWith PrintKeysWhere!"*/);
+                Assert.Equal("i.e\n", sw.ToString().Replace("\r\n", "\n"));
             }
         }
 
-
         [Fact]
+        [Points("1")]
         public void TestPrintKeysWhereJ()
         {
             using (StringWriter sw = new StringWriter())
@@ -100,12 +104,12 @@ namespace ExerciseTest
                 Program.PrintKeysWhere(dict, "j");
                 Console.SetOut(stdout);
 
-                // Assert
-                Assert.Equal("jne\n", sw.ToString().Replace("\r\n", "\n")/*, "You should only print the keys with given letter\nWith PrintKeysWhere!"*/);
+                Assert.Equal("jne\n", sw.ToString().Replace("\r\n", "\n"));
             }
         }
 
         [Fact]
+        [Points("1")]
         public void TestPrintKeysWhereDotE()
         {
             using (StringWriter sw = new StringWriter())
@@ -121,13 +125,13 @@ namespace ExerciseTest
                 Program.PrintKeysWhere(dict, ".e");
                 Console.SetOut(stdout);
 
-                // Assert
-                Assert.Contains("f.e", sw.ToString().Replace("\r\n", "\n")/*, "You should only print the keys with given letter\nWith PrintKeysWhere!"*/);
-                Assert.Contains("i.e", sw.ToString().Replace("\r\n", "\n")/*, "You should only print the keys with given letter\nWith PrintKeysWhere!"*/);
+                Assert.Contains("f.e", sw.ToString().Replace("\r\n", "\n"));
+                Assert.Contains("i.e", sw.ToString().Replace("\r\n", "\n"));
             }
         }
 
         [Fact]
+        [Points("1")]
         public void TestPrintValuesWhereDotE()
         {
             using (StringWriter sw = new StringWriter())
@@ -143,10 +147,9 @@ namespace ExerciseTest
                 Program.PrintValuesOfKeysWhere(dict, ".e");
                 Console.SetOut(stdout);
 
-                // Assert
-                Assert.Contains("for example", sw.ToString().Replace("\r\n", "\n")/*, "You should print the values!"*/);
-                Assert.Contains("more precisely", sw.ToString().Replace("\r\n", "\n")/*, "You should print the values!"*/);
-                Assert.DoesNotContain("ja niin edelleen", sw.ToString().Replace("\r\n", "\n")/*, "You should print the values!"*/);
+                Assert.Contains("for example", sw.ToString().Replace("\r\n", "\n"));
+                Assert.Contains("more precisely", sw.ToString().Replace("\r\n", "\n"));
+                Assert.DoesNotContain("ja niin edelleen", sw.ToString().Replace("\r\n", "\n"));
             }
         }
     }

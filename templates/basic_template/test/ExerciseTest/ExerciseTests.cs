@@ -8,14 +8,14 @@ namespace ExerciseTest
 {
     public class Tests
     {
-        string @namespace = "Exercise";
-        string mainclass = "Program";
+        private string @namespace = "Exercise";
+        private string mainClass = "Program";
         private Type MainClassType;
         private MethodInfo MainMethod;
 
         public Tests()
         {
-            MainClassType = Type.GetType($"{@namespace}.{mainclass},{@namespace}");
+            this.MainClassType = Type.GetType($"{@namespace}.{mainClass},{@namespace}");
             this.MainMethod = this.MainClassType.GetMethod("Main", new[] { typeof(string[]) });
         }
 

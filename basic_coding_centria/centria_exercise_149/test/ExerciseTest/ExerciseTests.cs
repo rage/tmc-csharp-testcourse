@@ -2,26 +2,29 @@ using System;
 using System.IO;
 using Xunit;
 using Exercise;
-using System.Text.RegularExpressions;
 using System.Reflection;
 using System.Collections.Generic;
-using System.Linq;
+using TestMyCode.CSharp.API.Attributes;
 
 namespace ExerciseTest
 {
     public class Tests
     {
-        private Type ProgramType = typeof(Program);
+        private string @namespace = "Exercise";
+        private string mainclass = "Program";
+        private Type MainClassType;
         private MethodInfo MainMethod;
         private MethodBody MainMethodBody;
 
         public Tests()
         {
-            this.MainMethod = this.ProgramType.GetMethod("Main", new[] { typeof(string[]) });
+            this.MainClassType = Type.GetType($"{@namespace}.{mainclass},{@namespace}");
+            this.MainMethod = this.MainClassType.GetMethod("Main", new[] { typeof(string[]) });
             this.MainMethodBody = this.MainMethod.GetMethodBody();
         }
 
         [Fact]
+        [Points("1")]
         public void PersonExampleShouldWork()
         {
             using (StringWriter sw = new StringWriter())
@@ -34,11 +37,12 @@ namespace ExerciseTest
                 Console.WriteLine(esko);
                 Console.SetOut(stdout);
                 string example = "Ada Lovelace, 24 Maddox St. London W1S 2QN\nEsko Ukkonen, Mannerheimintie 15 00100 Helsinki\n";
-                Assert.Equal(example, sw.ToString().Replace("\r\n", "\n")/*, "The example with Persons should work!"*/);
+                Assert.Equal(example, sw.ToString().Replace("\r\n", "\n"));
             }
         }
 
         [Fact]
+        [Points("1")]
         public void StudentExampleShouldWork()
         {
             using (StringWriter sw = new StringWriter())
@@ -50,11 +54,12 @@ namespace ExerciseTest
                 ollie.Study();
                 Console.WriteLine(ollie);
                 string example = "Ollie, 6381 Hollywood Blvd. Los Angeles 90028 credits: 0\nOllie, 6381 Hollywood Blvd. Los Angeles 90028 credits: 1\n";
-                Assert.Equal(example, sw.ToString().Replace("\r\n", "\n")/*, "The example with one Student should work!"*/);
+                Assert.Equal(example, sw.ToString().Replace("\r\n", "\n"));
             }
         }
 
         [Fact]
+        [Points("1")]
         public void TeacherExampleShouldWork()
         {
             using (StringWriter sw = new StringWriter())
@@ -67,12 +72,12 @@ namespace ExerciseTest
                 Console.WriteLine(esko);
                 Console.SetOut(stdout);
                 string example = "Ada Lovelace, 24 Maddox St. London W1S 2QN salary 1200 per month\nEsko Ukkonen, Mannerheimintie 15 00100 Helsinki salary 5400 per month\n";
-                Assert.Equal(example, sw.ToString().Replace("\r\n", "\n")/*, "The example with Teachers should work!"*/);
+                Assert.Equal(example, sw.ToString().Replace("\r\n", "\n"));
             }
         }
 
-
         [Fact]
+        [Points("1")]
         public void AddingAllKindsToListShouldWork()
         {
             using (StringWriter sw = new StringWriter())
@@ -91,7 +96,7 @@ namespace ExerciseTest
                     Console.WriteLine(person);
                 }
                 string example = "Ada Lovelace, 24 Maddox St. London W1S 2QN salary 1200 per month\nHeikki Ahonen, Under the Bridge\nMatt LeBlanc, Hollywood credits: 0\n";
-                Assert.Equal(example, sw.ToString().Replace("\r\n", "\n")/*, "All should implement Person!"*/);
+                Assert.Equal(example, sw.ToString().Replace("\r\n", "\n"));
             }
         }
     }

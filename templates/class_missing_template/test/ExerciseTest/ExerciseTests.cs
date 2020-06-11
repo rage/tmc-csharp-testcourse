@@ -8,15 +8,14 @@ namespace ExerciseTest
 {
     public class Tests
     {
-        string @namespace = "Exercise";
-        string mainclass = "Program";
+        private string @namespace = "Exercise";
+        private string mainClass = "Program";
         private Type MainClassType;
-        private Type CustomClassType;
         private MethodInfo MainMethod;
 
         public Tests()
         {
-            MainClassType = Type.GetType($"{@namespace}.{mainclass},{@namespace}");
+            this.MainClassType = Type.GetType($"{@namespace}.{mainClass},{@namespace}");
             this.MainMethod = this.MainClassType.GetMethod("Main", new[] { typeof(string[]) });
         }
 
@@ -31,9 +30,9 @@ namespace ExerciseTest
         [Points("1")]
         public void TestCustomClassIsCreated()
         {   
-            string customclass = "CustomClass";
-            CustomClassType = Type.GetType($"{@namespace}.{customclass},{@namespace}");
-            Assert.NotNull(CustomClassType);
+            string className = "CustomClass";
+            Type ClassType = Type.GetType($"{@namespace}.{className},{@namespace}");
+            Assert.NotNull(ClassType);
         }
     }
 }

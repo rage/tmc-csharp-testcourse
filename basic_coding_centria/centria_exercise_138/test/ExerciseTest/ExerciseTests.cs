@@ -2,32 +2,36 @@ using System;
 using System.IO;
 using Xunit;
 using Exercise;
-using System.Text.RegularExpressions;
 using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
+using TestMyCode.CSharp.API.Attributes;
 
 namespace ExerciseTest
 {
     public class Tests
     {
-        private Type ProgramType = typeof(Program);
+        private string @namespace = "Exercise";
+        private string mainClass = "Program";
+        private Type MainClassType;
         private MethodInfo MainMethod;
         private MethodBody MainMethodBody;
 
         public Tests()
         {
-            this.MainMethod = this.ProgramType.GetMethod("Main", new[] { typeof(string[]) });
+            this.MainClassType = Type.GetType($"{@namespace}.{mainClass},{@namespace}");
+            this.MainMethod = this.MainClassType.GetMethod("Main", new[] { typeof(string[]) });
             this.MainMethodBody = this.MainMethod.GetMethodBody();
         }
 
         [Fact]
         public void TestMainExists()
         {
-            Assert.NotNull(this.MainMethodBody/*, "Do not destroy the Main class from Program.cs!"*/);
+            Assert.NotNull(this.MainMethodBody);
         }
 
         [Fact]
+        [Points("1")]
         public void TestDictionaryIsUsed()
         {
             IList<LocalVariableInfo> locals = this.MainMethodBody.LocalVariables;
@@ -39,6 +43,7 @@ namespace ExerciseTest
         }
 
         [Fact]
+        [Points("1")]
         public void TestForeachIsUsed()
         {
             IList<ExceptionHandlingClause> exceptionHandlers = this.MainMethodBody.ExceptionHandlingClauses;
@@ -62,6 +67,7 @@ namespace ExerciseTest
         }
 
         [Fact]
+        [Points("1")]
         public void TestExercise138()
         {
             using (StringWriter sw = new StringWriter())
