@@ -14,7 +14,7 @@ namespace TestProject
 			//BEGIN SOLUTION
             Console.WriteLine("Hello Home");
 			//END SOLUTION
-			//STUB: Consol.WriteLine("Stub");
+			//STUB: Console.WriteLine("Stub");
         }
     }
 }
