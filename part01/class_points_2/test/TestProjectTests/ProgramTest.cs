@@ -5,6 +5,7 @@ using TestMyCode.CSharp.API.Attributes;
 
 namespace TestProjectTests
 {
+    [Fact]
     [Points("1")]
     public class ProgramTest
     {
