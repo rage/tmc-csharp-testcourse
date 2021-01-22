@@ -16,7 +16,7 @@ namespace TestProjectTests
         }
 
         [Fact]
-        [Points("1.2")]
+        [Points("1.1")]
         public void ReturnsNotInput()
         {
             Assert.True(Program.ReturnNotInput(false));
@@ -24,7 +24,7 @@ namespace TestProjectTests
         }
 
         [Fact]
-        [Points("1.3")]
+        [Points("1.2")]
         public void ReturnsString()
         {
             string s = "asd";
