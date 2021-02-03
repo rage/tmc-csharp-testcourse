@@ -17,10 +17,9 @@ namespace TestProjectTests
 
         [Fact]
         [Points("1.1")]
-        public void ReturnsNotInput()
+        public void TestForDualPoint()
         {
-            Assert.True(Program.ReturnNotInput(false));
-            Assert.False(Program.ReturnNotInput(true));
+            Assert.True(Program.BooleanForDualTestPoint);
         }
 
         [Fact]
@@ -35,7 +34,7 @@ namespace TestProjectTests
         [Fact]
         public void TestForClassPoint()
         {
-            Assert.True(true);
+            Assert.True(Program.BooleanForClassPoint);
         }
 
         public void NotAPointTest()
